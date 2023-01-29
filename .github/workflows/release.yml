@@ -3,7 +3,7 @@ name: 'Create Release'
 on:
   push:
     branches:
-      - main
+      - none
     paths-ignore:
       - '.github/**'
       - '.devcontainer/**'
