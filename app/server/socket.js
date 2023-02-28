@@ -105,7 +105,7 @@ module.exports = function appSocket(socket) {
       socket.emit('data', data.replace(/\r?\n/g, '\r\n').toString('utf-8'));
     });
 
-    conn.on('handshake', (data => {
+    conn.on('handshake', data => {
       socket.emit('setTerminalOpts', socket.request.session.ssh.terminal);
       socket.emit('menu');
       socket.emit('allowreauth', socket.request.session.ssh.allowreauth);
@@ -118,7 +118,7 @@ module.exports = function appSocket(socket) {
         'footer',
         `ssh://${socket.request.session.username}@${socket.request.session.ssh.host}:${socket.request.session.ssh.port}`
       );
-    }));
+    });
 
     conn.on('ready', () => {
       webssh2debug(
@@ -177,7 +177,7 @@ module.exports = function appSocket(socket) {
         stream.on('data', (data) => {
           socket.emit('data', data.toString('utf-8'));
         });
-        stream.on('close', (code, signal) => {
+        stream.on('close', (code, signal = '') => {
           webssh2debug(socket, `STREAM CLOSE: ${util.inspect([code, signal])}`);
           if (socket.request.session?.username && login === true) {
             auditLog(
