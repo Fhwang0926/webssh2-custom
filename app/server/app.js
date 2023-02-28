@@ -102,6 +102,7 @@ const onConnection = (socket) => {
   });
   socket.on('geometry', (cols, rows) => {
     // TODO need to rework how we pass settings to ssh2, this is less than ideal
+    // eslint-disable-next-line no-param-reassign
     socket.request.session.ssh.terminfo = { cols, rows };
     webssh2debug(socket, `SOCKET GEOMETRY: termCols = ${cols}, termRows = ${rows}`);
   });
