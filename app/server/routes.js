@@ -53,6 +53,11 @@ exports.connect = function connect(req, res) {
     }
   }
 
+  if(!host) {
+    // 보안상 로컬 연결은 허용하지 않음
+    return res.status(404).send("Sorry, can't find that!");
+  }
+
   if (req.method === 'POST' && req.body.username && req.body.userpassword) {
     req.session.username = req.body.username;
     req.session.userpassword = req.body.userpassword;

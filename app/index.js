@@ -16,7 +16,7 @@ const { server } = require('./server/app');
 server.listen({ host: config.listen.ip, port: config.listen.port });
 
 // eslint-disable-next-line no-console
-console.log(`WebSSH2 service listening on ${config.listen.ip}:${config.listen.port}`);
+console.log(`WebSSH2 service listening on http://${config.listen.ip}:${config.listen.port}`);
 
 server.on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
