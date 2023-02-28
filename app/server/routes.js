@@ -25,7 +25,6 @@ exports.reauth = function reauth(req, res) {
 };
 
 exports.connect = function connect(req, res) {
-  res.sendFile(path.join(path.join(publicPath, 'client.htm')));
 
   let { host, port } = config.ssh;
   let { text: header, background: headerBackground } = config.header;
@@ -55,8 +54,10 @@ exports.connect = function connect(req, res) {
 
   if(!host) {
     // 보안상 로컬 연결은 허용하지 않음
-    return res.status(404).send("Sorry, can't find that!");
+    res.status(404).send("Sorry, can't find that!");
   }
+
+  res.sendFile(path.join(path.join(publicPath, 'client.htm')));
 
   if (req.method === 'POST' && req.body.username && req.body.userpassword) {
     req.session.username = req.body.username;
